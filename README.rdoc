@@ -33,7 +33,7 @@ You can change the default settings for this gem by creating the following file:
 The contents of the file should look like this (where the default values can be changed to your liking):
 
   ---
-	:current_database: pg
+  :current_database: pg
   :databases:
     :pg:
       :options:
