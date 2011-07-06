@@ -1,0 +1,81 @@
+= Overview
+
+Database management for the command line with customizable options for common tasks (i.e. create, drop, dump, restore). Also
+supports the remigration process and makes dealing with cleaning up those tiny migration changes/updates that often clutter
+your Ruby on Rails db/migrate folder so you can get back to "create_*.rb" migrations only for a cleaner, readable and
+maintainable migrations.
+
+= Features
+
+1. Faster execution when creating/dropping databases than the default Ruby on Rails rake tasks.
+2. Adds support for each dumping and restoring of a database.
+3. Adds configurable settings for common database operations.
+4. Adds support for easier remigration/rebuilding of database that has to many splintered migrations.
+
+= Requirements
+
+1. A strong understanding of database management, migrations, dumps/restores, etc.
+
+= Setup
+
+Type the following from the command line to install:
+
+  gem install db
+
+Add the following to your Gemfile:
+
+  gem "db"
+
+You can change the default settings for this gem by creating the following file:
+
+  ~/.db/settings.yml
+
+The contents of the file should look like this (where the default values can be changed to your liking):
+
+  ---
+	:current_database: pg
+  :databases:
+    :pg:
+      :options:
+        :create: -v
+        :drop: -v
+        :dump: -v
+        :restore: -v
+      :archive:
+        :root_path: "/database_archives"
+        :name: "db.dump"
+  :rails:
+    :enabled: true
+    :env: development
+
+= Usage
+
+From the command line, type: db
+
+  db -D, [drop]       # Drop database.
+  db -R, [remigrate]  # Rebuild all database migrations and the database itself.
+  db -c, [create]     # Create database.
+  db -d, [dump]       # Dump database to archive file.
+  db -e, [edit]       # Edit settings in default editor (as set via the $EDITOR environment variable).
+  db -h, [help]       # Show this message.
+  db -r, [restore]    # Restore database from archive file.
+  db -v, [version]    # Show version.
+
+For more remigration options, type: db help remigrate:
+
+  -e, [--execute]  # Executes the remigration process.
+  -r, [--revert]   # Reverts database migrations to original state (before setup).
+  -s, [--setup]    # Prepares existing migrations for remigration process.
+
+= Author
+
+{Red Alchemist}[http://www.redalchemist.com]
+
+= License
+
+Copyright (c) 2011 {Red Alchemist}[http://www.redalchemist.com].
+Read the LICENSE for details.
+
+= History
+
+Read the CHANGELOG for details.

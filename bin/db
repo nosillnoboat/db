@@ -1,0 +1,5 @@
+#!/usr/local/bin/ruby
+
+require "db"
+require "db/cli"
+DB::CLI.start
