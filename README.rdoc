@@ -37,13 +37,11 @@ The contents of the file should look like this (where the default values can be 
   :databases:
     :pg:
       :options:
-        :create: -v
-        :drop: -v
-        :dump: -v
-        :restore: -v
-      :archive:
-        :root_path: "/database_archives"
-        :name: "db.dump"
+        :create: -w
+        :drop: -w
+        :dump: -Fc -w
+        :restore: -O -w
+      :archive_file: "db/database.dump"
   :rails:
     :enabled: true
     :env: development
