@@ -43,7 +43,7 @@ module DB
     map "-d" => :dump
     def dump overrides = nil
       @current_database.dump overrides
-      say_info "Database dumped."
+      say_info "Archive created: #{@current_database.archive_file}"
     end
 
     desc "-r, [restore]", "Restore database from archive file."
@@ -60,14 +60,18 @@ module DB
     desc "-R, [remigrate]", "Rebuild all database migrations and the database itself."
     map "-R" => :remigrate
     method_option :setup, :aliases => "-s", :desc => "Prepares existing migrations for remigration process.", :type => :boolean, :default => false
+    method_option :generator, :aliases => "-g", :desc => "Creates the remigration generator based on new migrations (produced during setup).", :type => :boolean, :default => false
     method_option :execute, :aliases => "-e", :desc => "Executes the remigration process.", :type => :boolean, :default => false
-    method_option :revert, :aliases => "-r", :desc => "Reverts database migrations to original state (before setup).", :type => :boolean, :default => false
+    method_option :clean, :aliases => "-c", :desc => "Cleans excess remigration files created during the setup and generator steps.", :type => :boolean, :default => false
+    method_option :restore, :aliases => "-r", :desc => "Reverts database migrations to original state (i.e. reverses setup).", :type => :boolean, :default => false
     def remigrate
       say
       case
       when options[:setup] then @current_database.remigrate_setup
+      when options[:generator] then @current_database.remigrate_generator
       when options[:execute] then @current_database.remigrate_execute
-      when options[:revert] then @current_database.remigrate_revert
+      when options[:clean] then @current_database.remigrate_clean
+      when options[:restore] then @current_database.remigrate_restore
       else say_info("Type 'db help remigrate' for usage.")
       end
       say

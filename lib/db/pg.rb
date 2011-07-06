@@ -53,60 +53,108 @@ module DB
       @cli.run "pg_restore #{restore_options options.to_a}"
     end
 
-    # Sets up existing database migrations for remigration. Example:
-    # def remigrate
-    #  generate "migration", "create_posts"
-    #  generate "migration", "create_pages"
-    #  ...
-    # end
+    # Sets up existing database migrations for remigration.
     def remigrate_setup
       @cli.say_info "Setting up project for remigration..."
       # Initialize.
       migrate_path = File.join("db", "migrate")
-      # Create migration "old" (for backup) and "new" (for modification) directories.
+      # Create an "old" migration directory (for backup purposes).
       @cli.directory migrate_path, File.join("db", "migrate-old")
+      # Create a "new" migration directory (for edit/update purposes).
       @cli.directory migrate_path, File.join("db", "migrate-new")
-      # Empty the existing "migrate" directory.
-      @cli.remove_file migrate_path
-      @cli.empty_directory migrate_path
-      # Generate a "remigrate" generator that builds new migration sequences from existing migrations. Example:
-      @cli.run "rails generate generator remigrate"
-      @cli.insert_into_file File.join("lib", "generators", "remigrate", "remigrate_generator.rb"), :after => "source_root File.expand_path('../templates', __FILE__)\n" do
-        template = "  def remigrate\n"
-        migrations = Dir.glob File.join("db", "migrate-new", "*create*.rb")
-        migrations = migrations.map {|file| ["    generate", "\"migration\",", "\"#{File.basename(file).gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
-        template << migrations.join('')
-        template << "  end\n"
-      end
       @cli.say_info "Database remigration setup complete."
+    end
+    
+    # Generates a "remigrate" generator that builds new migration sequences from existing migrations (i.e. migrate-new).
+    def remigrate_generator
+      if File.exists? File.join("lib", "generators", "remigrate", "remigrate_generator.rb")
+        if @cli.yes?("Existing generator detected. Do you want to overwrite and lose all changes (y/n)?")
+          @cli.remove_dir File.join("lib", "generators", "remigrate")
+          build_generator
+        else
+          @cli.say_info "Remigration generator aborted."
+        end
+      else
+        build_generator
+      end
     end
     
     # Executes the remigration process which dumps, drops, creates, migrates, and restores (data only) the database.
     def remigrate_execute
       @cli.say_info "Remigrating the database..."
-      dump
+      # Dump, drop, and recreate the database.
+      dump unless File.exists?(archive_file)
       drop
       create
+      # Remove existing migrations.
+      migrate_path = File.join("db", "migrate")
+      @cli.remove_file migrate_path
+      @cli.empty_directory migrate_path
+      # Execute the remigration generator.
+      @cli.run "rails generate remigrate run"
+      # Copy over migration file details from migrate-new to migrate folder based on migration base names.
+      Dir[File.join("db", "migrate-new", "*.rb")].each do |file|
+        name = File.basename(file).gsub(/\d+_/, '')
+        old_file = Dir[File.join("db", "migrate-new", "*#{name}")].first
+        new_file = Dir[File.join("db", "migrate", "*#{name}")].first
+        @cli.copy_file old_file, new_file, :force => true
+      end
+      # Execute new migrations.
       @cli.run "rake db:migrate"
+      # Restores the database archive dump (data only).
       restore "-a -O -w"
-      @cli.remove_file archive_file
       @cli.say_info "Remigration complete."
     end
 
-    # Reverts all remigration setup changes.
-    def remigrate_revert
+    # Cleans excess remigration files created during the setup and generator steps.
+    def remigrate_clean
+      if @cli.yes? "Cleaning of remigration support files is non-recoverable. Continue(y/n)?"
+        @cli.say_info "Cleaning up excess remigration files..."
+        # Remove migrations.
+        @cli.remove_dir File.join("db", "migrate-old")
+        @cli.remove_dir File.join("db", "migrate-new")
+        # Remove generators.
+        generators_path = File.join "lib", "generators"
+        @cli.remove_dir File.join(generators_path, "remigrate")
+        @cli.remove_dir File.join(generators_path) if Dir.entries(generators_path) - %w{. ..}
+        # Remove archive file.
+        @cli.remove_file archive_file
+        @cli.say_info "Remigration cleanup complete."
+      else
+        @cli.say_info "Remigration cleanup aborted."
+      end
+    end
+
+    # Restores remigration setup changes.
+    def remigrate_restore
       @cli.say_info "Reverting all remigration changes..."
+      # Remove current migrations.
+      @cli.remove_dir File.join("db", "migrate")
+      # Restore original migrations.
       @cli.directory File.join("db", "migrate-old"), File.join("db", "migrate")
+      # Remove new and old migrations.
       @cli.remove_dir File.join("db", "migrate-old")
       @cli.remove_dir File.join("db", "migrate-new")
+      # Remove generators.
       generators_path = File.join "lib", "generators"
       @cli.remove_dir File.join(generators_path, "remigrate")
       @cli.remove_dir File.join(generators_path) if Dir.entries(generators_path) - %w{. ..}
-      @cli.remove_dir File.join("lib", "generators")
       @cli.say_info "Remigration revert complete - Database migrations restored to original state."
     end
 
     private
+    
+    # Builds remigration generator based off new migrations (i.e. db/migrate-new).
+    def build_generator
+      @cli.run "rails generate generator remigrate"
+      @cli.insert_into_file File.join("lib", "generators", "remigrate", "remigrate_generator.rb"), :after => "source_root File.expand_path('../templates', __FILE__)\n" do
+        template = "  def remigrate\n"
+        migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
+        migrations = migrations.map {|file| ["    generate", "\"migration\",", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
+        template << migrations.join('')
+        template << "  end\n"
+      end
+    end
 
     # Builds default PostgreSQL createdb command line options.
     # ==== Parameters

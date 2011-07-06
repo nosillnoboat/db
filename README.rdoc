@@ -65,6 +65,27 @@ For more remigration options, type: db help remigrate:
   -r, [--revert]   # Reverts database migrations to original state (before setup).
   -s, [--setup]    # Prepares existing migrations for remigration process.
 
+= Workflows
+
+To backup a database:
+
+1. Run: db -d
+
+To rebuild a database:
+
+1. Run: db -D
+2. Run: db -c
+3. Run: db -r
+
+To remigrate a database:
+
+1. Run: db -R -s
+2. Remove excess migrations by manually applying changes to existing "create" migrations.
+3. Run: db -R -g
+4. Edit the "remigrate_generator" reorder the migrations (if necessary, otherwise nothing needs to be done).
+5. Run: db -R -e
+6. Run: db -R -c
+
 = Author
 
 {Red Alchemist}[http://www.redalchemist.com]
