@@ -53,6 +53,24 @@ module DB
       @cli.run "pg_restore #{restore_options options.to_a}"
     end
 
+    # Executes database migrations.
+    def migrate
+      if rails_enabled?
+        @cli.run "rake db:migrate"
+      else
+        @cli.say_error "Unable to migrate - This is not a Rails project or Rails support is not enabled."
+      end
+    end
+    
+    # Adds any/all seed data to database.
+    def seed
+      if rails_enabled?
+        @cli.run "rake db:seed"
+      else
+        @cli.say_error "Unable to migrate - This is not a Rails project or Rails support is not enabled."
+      end
+    end
+
     # Sets up existing database migrations for remigration.
     def remigrate_setup
       @cli.say_info "Setting up project for remigration..."
@@ -91,7 +109,7 @@ module DB
       @cli.remove_file migrate_path
       @cli.empty_directory migrate_path
       # Execute the remigration generator.
-      @cli.run "rails generate remigrate run"
+      migrate
       # Copy over migration file details from migrate-new to migrate folder based on migration base names.
       Dir[File.join("db", "migrate-new", "*.rb")].each do |file|
         name = File.basename(file).gsub(/\d+_/, '')

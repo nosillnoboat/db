@@ -21,14 +21,14 @@ module DB
       File.expand_path '.'
     end
     
-    desc "-c, [create]", "Create database."
+    desc "-c, [create]", "Create new database."
     map "-c" => :create
     def create overrides = nil
       @current_database.create overrides
       say_info "Database created."
     end
 
-    desc "-D, [drop]", "Drop database."
+    desc "-D, [drop]", "Drop current database."
     map "-D" => :drop
     def drop overrides = nil
       if yes? "All data in current database will be completely destroyed. Continue (y/n)?"
@@ -39,14 +39,14 @@ module DB
       end
     end
 
-    desc "-d, [dump]", "Dump database to archive file."
+    desc "-d, [dump]", "Dump current database to archive file."
     map "-d" => :dump
     def dump overrides = nil
       @current_database.dump overrides
       say_info "Archive created: #{@current_database.archive_file}"
     end
 
-    desc "-r, [restore]", "Restore database from archive file."
+    desc "-r, [restore]", "Restore current database from archive file."
     map "-r" => :restore
     def restore overrides = nil
       if yes? "All data in current database will be completely overwritten. Continue (y/n)?"
@@ -57,7 +57,21 @@ module DB
       end
     end
 
-    desc "-R, [remigrate]", "Rebuild all database migrations and the database itself."
+    desc "-F, [fresh]", "Create a fresh database from scratch (i.e. drop, create, migrate, and seed)."
+    map "-F" => :fresh
+    def fresh overrides = nil
+      if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue (y/n)?"
+        @current_database.drop
+        @current_database.create
+        @current_database.migrate
+        @current_database.seed
+        say_info "Database restored."
+      else
+        say_info "Database restore aborted."
+      end
+    end
+
+    desc "-R, [remigrate]", "Rebuild current database migrations and the database itself."
     map "-R" => :remigrate
     method_option :setup, :aliases => "-s", :desc => "Prepares existing migrations for remigration process.", :type => :boolean, :default => false
     method_option :generator, :aliases => "-g", :desc => "Creates the remigration generator based on new migrations (produced during setup).", :type => :boolean, :default => false
