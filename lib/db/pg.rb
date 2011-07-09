@@ -86,7 +86,7 @@ module DB
     # Generates a "remigrate" generator that builds new migration sequences from existing migrations (i.e. migrate-new).
     def remigrate_generator
       if File.exists? File.join("lib", "generators", "remigrate", "remigrate_generator.rb")
-        if @cli.yes?("Existing generator detected. Do you want to overwrite and lose all changes (y/n)?")
+        if @cli.yes?("Existing generator detected. Overwrite and lose all changes? (y/n)")
           @cli.remove_dir File.join("lib", "generators", "remigrate")
           build_generator
         else
@@ -126,7 +126,7 @@ module DB
 
     # Cleans excess remigration files created during the setup and generator steps.
     def remigrate_clean
-      if @cli.yes? "Cleaning of remigration support files is non-recoverable. Continue(y/n)?"
+      if @cli.yes? "Cleaning of remigration support files is non-recoverable. Continue? (y/n)"
         @cli.say_info "Cleaning up excess remigration files..."
         # Remove migrations.
         @cli.remove_dir File.join("db", "migrate-old")

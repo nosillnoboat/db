@@ -31,7 +31,7 @@ module DB
     desc "-D, [drop]", "Drop current database."
     map "-D" => :drop
     def drop overrides = nil
-      if yes? "All data in current database will be completely destroyed. Continue (y/n)?"
+      if yes? "All data in current database will be completely destroyed. Continue? (y/n)"
         @current_database.drop overrides
         say_info "Database dropped."
       else
@@ -49,18 +49,36 @@ module DB
     desc "-r, [restore]", "Restore current database from archive file."
     map "-r" => :restore
     def restore overrides = nil
-      if yes? "All data in current database will be completely overwritten. Continue (y/n)?"
+      if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         @current_database.restore overrides
         say_info "Database restored."
       else
         say_info "Database restore aborted."
       end
     end
+    
+    desc "-i, [import]", "Import archive data into current database (i.e. drop, create, restore, and migrate)."
+    map "-i" => :import
+    def import
+      if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
+        if File.exist? @current_database.archive_file
+          @current_database.drop
+          @current_database.create
+          @current_database.restore
+          @current_database.migrate
+          say_info "Database import complete."
+        else
+          say_error "Unable to find archive file: #{@current_database.archive_file}. Import aborted."
+        end
+      else
+        say_info "Databsae import aborted."
+      end
+    end
 
     desc "-F, [fresh]", "Create a fresh database from scratch (i.e. drop, create, migrate, and seed)."
     map "-F" => :fresh
     def fresh overrides = nil
-      if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue (y/n)?"
+      if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
         @current_database.drop
         @current_database.create
         @current_database.migrate
