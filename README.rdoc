@@ -41,7 +41,7 @@ The contents of the file should look like this (where the default values can be 
         :drop: -w
         :dump: -Fc -w
         :restore: -O -w
-      :archive_file: "db/database.dump"
+      :archive_file: "db/archive.dump"
   :rails:
     :enabled: true
     :env: development

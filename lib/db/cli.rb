@@ -75,7 +75,7 @@ module DB
       end
     end
 
-    desc "-F, [fresh]", "Create a fresh database from scratch (i.e. drop, create, migrate, and seed)."
+    desc "-F, [fresh]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
     map "-F" => :fresh
     def fresh overrides = nil
       if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
@@ -92,17 +92,21 @@ module DB
     desc "-m, [migrate]", "Execute migrations for current database."
     map "-m" => :migrate
     def migrate
-      @current_database.migrate
-      say_info "Database migrated."
+      if @current_database.rails_enabled?
+        @current_database.migrate
+        say_info "Database migrated."
+      else
+        say_error "Unable to migrate - This is not a Rails project or Rails support is not enabled."
+      end
     end
 
     desc "-M, [remigrate]", "Rebuild current database from new migrations."
     map "-M" => :remigrate
-    method_option :setup, :aliases => "-s", :desc => "Prepares existing migrations for remigration process.", :type => :boolean, :default => false
-    method_option :generator, :aliases => "-g", :desc => "Creates the remigration generator based on new migrations (produced during setup).", :type => :boolean, :default => false
-    method_option :execute, :aliases => "-e", :desc => "Executes the remigration process.", :type => :boolean, :default => false
-    method_option :clean, :aliases => "-c", :desc => "Cleans excess remigration files created during the setup and generator steps.", :type => :boolean, :default => false
-    method_option :restore, :aliases => "-r", :desc => "Reverts database migrations to original state (i.e. reverses setup).", :type => :boolean, :default => false
+    method_option :setup, :aliases => "-s", :desc => "Prepare existing migrations for remigration process.", :type => :boolean, :default => false
+    method_option :generator, :aliases => "-g", :desc => "Create the remigration generator based on new migrations (as created during setup).", :type => :boolean, :default => false
+    method_option :execute, :aliases => "-e", :desc => "Execute the remigration process.", :type => :boolean, :default => false
+    method_option :clean, :aliases => "-c", :desc => "Clean excess remigration files created during the setup and generator steps.", :type => :boolean, :default => false
+    method_option :restore, :aliases => "-r", :desc => "Revert database migrations to original state (i.e. reverses setup).", :type => :boolean, :default => false
     def remigrate
       say
       case
@@ -111,12 +115,12 @@ module DB
       when options[:execute] then @current_database.remigrate_execute
       when options[:clean] then @current_database.remigrate_clean
       when options[:restore] then @current_database.remigrate_restore
-      else say_info("Type 'db help remigrate' for usage.")
+      else help("remigrate")
       end
       say
     end
 
-    desc "-e, [edit]", "Edit gem settings in default editor."
+    desc "-e, [edit]", "Edit gem settings in default editor (assumes $EDITOR environment variable)."
     map "-e" => :edit
     def edit
       say_info "Launching editor..."
@@ -150,7 +154,7 @@ module DB
               :dump => "-Fc -w",
               :restore => "-O -w"
             },
-            :archive_file => "db/database.dump"
+            :archive_file => "db/archive.dump"
           }
         },
         :rails => {

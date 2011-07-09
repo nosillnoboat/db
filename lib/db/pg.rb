@@ -28,7 +28,7 @@ module DB
       default_settings[:options]
     end
 
-    # Answers the archive file (including path).
+    # Answers the archive file path.
     def archive_file
       default_settings[:archive_file]
     end
@@ -43,32 +43,24 @@ module DB
       @cli.run "dropdb #{drop_options options.to_a}"
     end
 
-    # Dumps existing database to an archive file.
+    # Dumps existing database to archive file.
     def dump options = nil
       @cli.run "pg_dump #{dump_options options.to_a}"
     end
     
-    # Restores a database from an archive file.
+    # Restores a database from archive file.
     def restore options = nil
       @cli.run "pg_restore #{restore_options options.to_a}"
     end
 
     # Executes database migrations.
     def migrate
-      if rails_enabled?
-        @cli.run "rake db:migrate"
-      else
-        @cli.say_error "Unable to migrate - This is not a Rails project or Rails support is not enabled."
-      end
+      @cli.run "rake db:migrate"
     end
     
     # Adds any/all seed data to database.
     def seed
-      if rails_enabled?
-        @cli.run "rake db:seed"
-      else
-        @cli.say_error "Unable to migrate - This is not a Rails project or Rails support is not enabled."
-      end
+      @cli.run "rake db:seed"
     end
 
     # Sets up existing database migrations for remigration.
