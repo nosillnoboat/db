@@ -69,12 +69,12 @@ For more remigration options, type: db help remigrate:
 
 For those with Ruby on Rails projects, you might find this a welcomed tool for cleaning and maintaining your
 migrations. The problem with database migrations is that they tend to get cluttered over time. Instead of
-nice *create*.rb migrations you eventually get *drop*.rb, *rename*.rb, *add*.rb, etc. migrations mixed with your
-*create*.rb migrations (think of this as migration fragmentation). This can also make your table schemas messy
-to read depending on how many changes you have applied to a table over time. Instead of being stuck with this
-clutter, the remigration process allows you to clean up previous migration fragments and consolidate them into
-create migrations instead so that you have a directory of *create*.rb migration files only and better looking
-database schemas to boot.
+nice create migrations you eventually get drop, rename, add, etc. migrations mixed with your create migrations
+(think of this as migration fragmentation). This can also make your table schemas messy to read depending on
+how many changes you have applied to a table over time. Instead of being stuck with this clutter, the
+remigration process allows you to clean up previous migration fragments and consolidate them into create
+migrations instead so that you have a directory of create migration files with a better looking database
+schema to boot.
 
 To remigrate a database:
 
