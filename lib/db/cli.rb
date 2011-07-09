@@ -71,14 +71,14 @@ module DB
       end
     end
     
-    desc "-m, [migrate]", "Executes migrations for current database."
+    desc "-m, [migrate]", "Execute migrations for current database."
     map "-m" => :migrate
     def migrate
       @current_database.migrate
       say_info "Database migrated."
     end
 
-    desc "-M, [remigrate]", "Rebuild current database migrations and the database itself."
+    desc "-M, [remigrate]", "Rebuild current database from new migrations."
     map "-M" => :remigrate
     method_option :setup, :aliases => "-s", :desc => "Prepares existing migrations for remigration process.", :type => :boolean, :default => false
     method_option :generator, :aliases => "-g", :desc => "Creates the remigration generator based on new migrations (produced during setup).", :type => :boolean, :default => false
@@ -98,7 +98,7 @@ module DB
       say
     end
 
-    desc "-e, [edit]", "Edit settings in default editor (as set via the $EDITOR environment variable)."
+    desc "-e, [edit]", "Edit gem settings in default editor."
     map "-e" => :edit
     def edit
       say_info "Launching editor..."
