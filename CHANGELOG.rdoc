@@ -1,3 +1,15 @@
+= v0.2.0
+
+* Fixed issues with the remigration generator not merging in new migration changes and respecting order.
+* Added the remigration generator and clean commands.
+* Added the -F (fresh) command which aids in building a new database (including migration and seeding).
+* Added the -m (migrate) command
+* Added the -i (import) command.
+* Renamed the remigration revert command to restore.
+* Renamed the -R (remigrate) command to -M.
+* Renamed the archive file to archive.dump instead of database.dump.
+* Cleaned up all documentation.
+
 = v0.1.0
 
 * Initial version.
