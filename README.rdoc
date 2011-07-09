@@ -85,6 +85,14 @@ To remigrate a database:
 5. Run: db -M -e
 6. Run: db -M -c
 
+Remigration is a multi-step process due to the fact that you need to have breakpoints where you can customize
+and tweak your migrations as you see fit. You'll want to perform all six steps each time you undergo remigration.
+Should you get cold feet and decide remigration is not for you, run the following command:
+
+  db -M -r
+
+This will restore your migrations to their original state.
+
 = Author
 
 {Red Alchemist}[http://www.redalchemist.com]
