@@ -70,9 +70,16 @@ module DB
         say_info "Database restore aborted."
       end
     end
+    
+    desc "-m, [migrate]", "Executes migrations for current database."
+    map "-m" => :migrate
+    def migrate
+      @current_database.migrate
+      say_info "Database migrated."
+    end
 
-    desc "-R, [remigrate]", "Rebuild current database migrations and the database itself."
-    map "-R" => :remigrate
+    desc "-M, [remigrate]", "Rebuild current database migrations and the database itself."
+    map "-M" => :remigrate
     method_option :setup, :aliases => "-s", :desc => "Prepares existing migrations for remigration process.", :type => :boolean, :default => false
     method_option :generator, :aliases => "-g", :desc => "Creates the remigration generator based on new migrations (produced during setup).", :type => :boolean, :default => false
     method_option :execute, :aliases => "-e", :desc => "Executes the remigration process.", :type => :boolean, :default => false
