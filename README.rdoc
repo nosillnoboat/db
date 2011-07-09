@@ -1,16 +1,15 @@
 = Overview
 
-Database management for the command line with customizable options for common tasks (i.e. create, drop, dump, restore). Also
-supports the remigration process and makes dealing with cleaning up those tiny migration changes/updates that often clutter
-your Ruby on Rails db/migrate folder so you can get back to "create_*.rb" migrations only for a cleaner, readable and
-maintainable migrations.
+Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
+restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration
+changes/updates that accumulate over time in your Ruby on Rails db/migrate folder.
 
 = Features
 
 1. Faster execution when creating/dropping databases than the default Ruby on Rails rake tasks.
-2. Adds support for each dumping and restoring of a database.
+2. Adds support for dumping and restoring of a database.
 3. Adds configurable settings for common database operations.
-4. Adds support for easier remigration/rebuilding of database that has to many splintered migrations.
+4. Adds support for easier remigration/rebuilding of a database with many migration fragments.
 
 = Requirements
 
@@ -21,10 +20,6 @@ maintainable migrations.
 Type the following from the command line to install:
 
   gem install db
-
-Add the following to your Gemfile:
-
-  gem "db"
 
 You can change the default settings for this gem by creating the following file:
 
@@ -50,41 +45,45 @@ The contents of the file should look like this (where the default values can be 
 
 From the command line, type: db
 
-  db -D, [drop]       # Drop database.
-  db -R, [remigrate]  # Rebuild all database migrations and the database itself.
-  db -c, [create]     # Create database.
-  db -d, [dump]       # Dump database to archive file.
-  db -e, [edit]       # Edit settings in default editor (as set via the $EDITOR environment variable).
-  db -h, [help]       # Show this message.
-  db -r, [restore]    # Restore database from archive file.
+  db -c, [create]     # Create new database.
+  db -D, [drop]       # Drop current database.
+  db -d, [dump]       # Dump current database to archive file.
+  db -r, [restore]    # Restore current database from archive file.
+  db -F, [fresh]      # Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed).
+  db -i, [import]     # Import archive data into current database (i.e. drop, create, restore, and migrate).
+  db -m, [migrate]    # Execute migrations for current database.
+  db -M, [remigrate]  # Rebuild current database from new migrations.
+  db -e, [edit]       # Edit gem settings in default editor (assumes $EDITOR environment variable).
   db -v, [version]    # Show version.
+  db -h, [help]       # Show this message.
 
 For more remigration options, type: db help remigrate:
 
-  -e, [--execute]  # Executes the remigration process.
-  -r, [--revert]   # Reverts database migrations to original state (before setup).
-  -s, [--setup]    # Prepares existing migrations for remigration process.
+  -s, [--setup]      # Prepare existing migrations for remigration process.
+  -g, [--generator]  # Create the remigration generator based on new migrations (as created during setup).
+  -e, [--execute]    # Execute the remigration process.
+  -c, [--clean]      # Clean excess remigration files created during the setup and generator steps.
+  -r, [--restore]    # Revert database migrations to original state (i.e. reverses setup).
 
-= Workflows
+= The Remigration Process
 
-To backup a database:
-
-1. Run: db -d
-
-To rebuild a database:
-
-1. Run: db -D
-2. Run: db -c
-3. Run: db -r
+For those with Ruby on Rails projects, you might find this a welcomed tool for cleaning and maintaining your
+migrations. The problem with database migrations is that they tend to get cluttered over time. Instead of
+nice *create*.rb migrations you eventually get *drop*.rb, *rename*.rb, *add*.rb, etc. migrations mixed with your
+*create*.rb migrations (think of this as migration fragmentation). This can also make your table schemas messy
+to read depending on how many changes you have applied to a table over time. Instead of being stuck with this
+clutter, the remigration process allows you to clean up previous migration fragments and consolidate them into
+create migrations instead so that you have a directory of *create*.rb migration files only and better looking
+database schemas to boot.
 
 To remigrate a database:
 
-1. Run: db -R -s
+1. Run: db -M -s
 2. Remove excess migrations by manually applying changes to existing "create" migrations.
-3. Run: db -R -g
-4. Edit the "remigrate_generator" reorder the migrations (if necessary, otherwise nothing needs to be done).
-5. Run: db -R -e
-6. Run: db -R -c
+3. Run: db -M -g
+4. Edit the "remigrate_generator" reorder the migrations (if necessary, otherwise move to the next step).
+5. Run: db -M -e
+6. Run: db -M -c
 
 = Author
 

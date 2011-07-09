@@ -56,6 +56,20 @@ module DB
         say_info "Database restore aborted."
       end
     end
+
+    desc "-F, [fresh]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
+    map "-F" => :fresh
+    def fresh overrides = nil
+      if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
+        @current_database.drop
+        @current_database.create
+        @current_database.migrate
+        @current_database.seed
+        say_info "Database restored."
+      else
+        say_info "Database restore aborted."
+      end
+    end
     
     desc "-i, [import]", "Import archive data into current database (i.e. drop, create, restore, and migrate)."
     map "-i" => :import
@@ -75,20 +89,6 @@ module DB
       end
     end
 
-    desc "-F, [fresh]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
-    map "-F" => :fresh
-    def fresh overrides = nil
-      if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
-        @current_database.drop
-        @current_database.create
-        @current_database.migrate
-        @current_database.seed
-        say_info "Database restored."
-      else
-        say_info "Database restore aborted."
-      end
-    end
-    
     desc "-m, [migrate]", "Execute migrations for current database."
     map "-m" => :migrate
     def migrate
