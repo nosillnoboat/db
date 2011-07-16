@@ -1,3 +1,7 @@
+= v0.3.0
+
+* Fixed bug with remigrate execute process where migration generator would fail to build new migrations.
+
 = v0.2.0
 
 * Fixed issues with the remigration generator not merging in new migration changes and respecting order.
