@@ -100,14 +100,13 @@ module DB
       migrate_path = File.join("db", "migrate")
       @cli.remove_file migrate_path
       @cli.empty_directory migrate_path
-      # Execute the remigration generator.
-      migrate
+      # Execute the remigration generator to generate new but empty migrations.
+      @cli.run "rails generate remigrate ignore"
       # Copy over migration file details from migrate-new to migrate folder based on migration base names.
-      Dir[File.join("db", "migrate-new", "*.rb")].each do |file|
-        name = File.basename(file).gsub(/\d+_/, '')
-        old_file = Dir[File.join("db", "migrate-new", "*#{name}")].first
+      Dir[File.join("db", "migrate-new", "*.rb")].each do |base_file|
+        name = File.basename(base_file).gsub(/\d+_/, '')
         new_file = Dir[File.join("db", "migrate", "*#{name}")].first
-        @cli.copy_file old_file, new_file, :force => true
+        @cli.copy_file base_file, new_file, :force => true
       end
       # Execute new migrations.
       @cli.run "rake db:migrate"
