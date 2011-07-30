@@ -156,10 +156,12 @@ module DB
     # Builds remigration generator based off new migrations (i.e. db/migrate-new).
     def build_generator
       @cli.run "rails generate generator remigrate"
-      @cli.insert_into_file File.join("lib", "generators", "remigrate", "remigrate_generator.rb"), :after => "source_root File.expand_path('../templates', __FILE__)\n" do
+      generator_file = File.join "lib", "generators", "remigrate", "remigrate_generator.rb"
+      @cli.template "generator.rb", generator_file
+      @cli.insert_into_file generator_file, :after => "source_root Dir.pwd\n" do
         template = "  def remigrate\n"
         migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
-        migrations = migrations.map {|file| ["    generate", "\"migration\",", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
+        migrations = migrations.map {|file| ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
         template << migrations.join('')
         template << "  end\n"
       end
