@@ -101,7 +101,7 @@ module DB
       @cli.remove_file migrate_path
       @cli.empty_directory migrate_path
       # Execute the remigration generator to generate new but empty migrations.
-      @cli.run "rails generate remigrate ignore"
+      @cli.run "rails generate remigrate"
       # Copy over migration file details from migrate-new to migrate folder based on migration base names.
       Dir[File.join("db", "migrate-new", "*.rb")].each do |base_file|
         name = File.basename(base_file).gsub(/\d+_/, '')
@@ -157,9 +157,9 @@ module DB
     def build_generator
       @cli.run "rails generate generator remigrate"
       generator_file = File.join "lib", "generators", "remigrate", "remigrate_generator.rb"
-      @cli.template "generator.rb", generator_file
+      @cli.template File.expand_path(File.join(File.dirname(__FILE__), "templates", "generator.rb")), generator_file, :force => true
       @cli.insert_into_file generator_file, :after => "source_root Dir.pwd\n" do
-        template = "  def remigrate\n"
+        template = "\n  def remigrate\n"
         migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
         migrations = migrations.map {|file| ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
         template << migrations.join('')
