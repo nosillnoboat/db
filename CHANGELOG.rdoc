@@ -1,3 +1,9 @@
+= v0.4.0
+
+* Fixed stack dump during remigration cleanup if the generators directory didn't exist.
+* Added a template for the remigration generator which provides a huge speed boost to the execution process.
+* Added documentation to the remigrate generator.
+
 = v0.3.0
 
 * Fixed bug with remigrate execute process where migration generator would fail to build new migrations.

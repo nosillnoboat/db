@@ -111,7 +111,7 @@ module DB
     # Cleans excess remigration files created during the setup and generator steps.
     def remigrate_clean
       if @cli.yes? "Cleaning of remigration support files is non-recoverable. Continue? (y/n)"
-        @cli.say_info "Cleaning up excess remigration files..."
+        @cli.say_info "Cleaning excess remigration files..."
         # Remove migrations.
         @cli.remove_dir File.join("db", "migrate-old")
         @cli.remove_dir File.join("db", "migrate-new")
