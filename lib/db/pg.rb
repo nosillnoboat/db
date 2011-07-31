@@ -118,7 +118,9 @@ module DB
         # Remove generators.
         generators_path = File.join "lib", "generators"
         @cli.remove_dir File.join(generators_path, "remigrate")
-        @cli.remove_dir File.join(generators_path) if Dir.entries(generators_path) - %w{. ..}
+        if File.exists?(generators_path) && (Dir.entries(generators_path) - %w{. ..})
+          @cli.remove_dir File.join(generators_path)
+        end
         # Remove archive file.
         @cli.remove_file archive_file
         @cli.say_info "Remigration cleanup complete."
