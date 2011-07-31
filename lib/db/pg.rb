@@ -151,12 +151,10 @@ module DB
       @cli.run "rails generate generator remigrate"
       generator_file = File.join "lib", "generators", "remigrate", "remigrate_generator.rb"
       @cli.template File.expand_path(File.join(File.dirname(__FILE__), "templates", "generator.rb")), generator_file, :force => true
-      @cli.insert_into_file generator_file, :after => "source_root Dir.pwd\n" do
-        template = "\n  def remigrate\n"
+      @cli.insert_into_file generator_file, :after => "def remigrate\n" do
         migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
         migrations = migrations.map {|file| ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
-        template << migrations.join('')
-        template << "  end\n"
+        migrations * ''
       end
     end
 
