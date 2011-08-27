@@ -91,6 +91,11 @@ Should you get cold feet and decide against remigration, run the following comma
 
   db -M -r
 
+= Troubleshooting
+
+Should you encounter a _fe_sendauth no password supplied_ PostgreSQL error, double check you have added your
+login and password credentials to the ~/.pgpass file in order to resolve the issue.
+
 = Author
 
 {Red Alchemist}[http://www.redalchemist.com]
