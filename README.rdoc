@@ -93,7 +93,7 @@ Should you get cold feet and decide against remigration, run the following comma
 
 = Troubleshooting
 
-Should you encounter a _fe_sendauth no password supplied_ PostgreSQL error, double check you have added your
+Should you encounter a "fe_sendauth no password supplied" PostgreSQL error, double check you have added your
 login and password credentials to the ~/.pgpass file in order to resolve the issue.
 
 = Author
