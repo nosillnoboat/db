@@ -85,7 +85,7 @@ module DB
           say_error "Unable to find archive file: #{@current_database.archive_file}. Import aborted."
         end
       else
-        say_info "Databsae import aborted."
+        say_info "Database import aborted."
       end
     end
 
