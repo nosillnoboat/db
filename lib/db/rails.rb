@@ -10,7 +10,7 @@ module DB
     def rails_enabled?
       @settings[:rails][:enabled]
     end
-
+    
     # Answers the Ruby on Rails database settings (i.e. database.yml) for the current Ruby on Rails environment.
     def rails_database_env_settings
       @rails_database_settings[rails_env]
@@ -25,7 +25,7 @@ module DB
         begin
           @rails_database_settings = YAML::load_file @rails_database_settings_file
         rescue
-          @cli.shell.say "ERROR: Invalid Rails database settings: #{@rails_database_settings_file}."
+          @cli.say_error "Invalid Rails database settings: #{@rails_database_settings_file}."
         end
       else
         @settings[:rails][:enabled] = false

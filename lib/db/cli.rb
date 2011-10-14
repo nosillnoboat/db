@@ -61,10 +61,7 @@ module DB
     map "-F" => :fresh
     def fresh overrides = nil
       if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
-        @current_database.drop
-        @current_database.create
-        @current_database.migrate
-        @current_database.seed
+        @current_database.freshen
         say_info "Database restored."
       else
         say_info "Database restore aborted."
@@ -76,13 +73,10 @@ module DB
     def import
       if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         if File.exist? @current_database.archive_file
-          @current_database.drop
-          @current_database.create
-          @current_database.restore
-          @current_database.migrate
+          @current_database.import
           say_info "Database import complete."
         else
-          say_error "Unable to find archive file: #{@current_database.archive_file}. Import aborted."
+          say_error "Import aborted. Unable to find archive file: #{@current_database.archive_file}."
         end
       else
         say_info "Database import aborted."
@@ -92,12 +86,8 @@ module DB
     desc "-m, [migrate]", "Execute migrations for current database."
     map "-m" => :migrate
     def migrate
-      if @current_database.rails_enabled?
-        @current_database.migrate
-        say_info "Database migrated."
-      else
-        say_error "Unable to migrate - This is not a Rails project or Rails support is not enabled."
-      end
+      @current_database.migrate
+      say_info "Database migrated."
     end
 
     desc "-M, [remigrate]", "Rebuild current database from new migrations."

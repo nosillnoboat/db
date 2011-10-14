@@ -63,6 +63,22 @@ module DB
       @cli.run "rake db:seed"
     end
 
+    # Rebuilds the current database by executing all migrations and adding initial seed data.
+    def freshen
+      drop
+      create
+      migrate
+      seed
+    end
+    
+    # Imports a database archive into the current database (i.e. drop, create, restore, and migrate)."
+    def import
+      drop
+      create
+      restore
+      migrate
+    end
+
     # Sets up existing database migrations for remigration.
     def remigrate_setup
       @cli.say_info "Setting up project for remigration..."
