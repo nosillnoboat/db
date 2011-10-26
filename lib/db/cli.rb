@@ -23,14 +23,14 @@ module DB
     
     desc "-c, [create]", "Create new database."
     map "-c" => :create
-    def create overrides = nil
+    def create overrides = []
       @current_database.create overrides
       say_info "Database created."
     end
 
     desc "-D, [drop]", "Drop current database."
     map "-D" => :drop
-    def drop overrides = nil
+    def drop overrides = []
       if yes? "All data in current database will be completely destroyed. Continue? (y/n)"
         @current_database.drop overrides
         say_info "Database dropped."
@@ -41,14 +41,14 @@ module DB
 
     desc "-d, [dump]", "Dump current database to archive file."
     map "-d" => :dump
-    def dump overrides = nil
+    def dump overrides = []
       @current_database.dump overrides
       say_info "Archive created: #{@current_database.archive_file}"
     end
 
     desc "-r, [restore]", "Restore current database from archive file."
     map "-r" => :restore
-    def restore overrides = nil
+    def restore overrides = []
       if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         @current_database.restore overrides
         say_info "Database restored."
@@ -59,7 +59,7 @@ module DB
 
     desc "-F, [fresh]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
     map "-F" => :fresh
-    def fresh overrides = nil
+    def fresh overrides = []
       if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
         @current_database.freshen
         say_info "Database restored."
@@ -92,11 +92,11 @@ module DB
 
     desc "-M, [remigrate]", "Rebuild current database from new migrations."
     map "-M" => :remigrate
-    method_option :setup, :aliases => "-s", :desc => "Prepare existing migrations for remigration process.", :type => :boolean, :default => false
-    method_option :generator, :aliases => "-g", :desc => "Create the remigration generator based on new migrations (as created during setup).", :type => :boolean, :default => false
-    method_option :execute, :aliases => "-e", :desc => "Execute the remigration process.", :type => :boolean, :default => false
-    method_option :clean, :aliases => "-c", :desc => "Clean excess remigration files created during the setup and generator steps.", :type => :boolean, :default => false
-    method_option :restore, :aliases => "-r", :desc => "Revert database migrations to original state (i.e. reverses setup).", :type => :boolean, :default => false
+    method_option :setup, aliases: "-s", desc: "Prepare existing migrations for remigration process.", type: :boolean, default: false
+    method_option :generator, aliases: "-g", desc: "Create the remigration generator based on new migrations (as created during setup).", type: :boolean, default: false
+    method_option :execute, aliases: "-e", desc: "Execute the remigration process.", type: :boolean, default: false
+    method_option :clean, aliases: "-c", desc: "Clean excess remigration files created during the setup and generator steps.", type: :boolean, default: false
+    method_option :restore, aliases: "-r", desc: "Revert database migrations to original state (i.e. reverses setup).", type: :boolean, default: false
     def remigrate
       say
       case
@@ -135,21 +135,21 @@ module DB
     def load_settings
       # Defaults.
       @settings = {
-        :current_database => PG.id,
-        :databases => {
-          :pg => {
-            :options => {
-              :create => "-w",
-              :drop => "-w",
-              :dump => "-Fc -w",
-              :restore => "-O -w"
+        current_database: PG.id,
+        databases: {
+          pg: {
+            options: {
+              create: "-w",
+              drop: "-w",
+              dump: "-Fc -w",
+              restore: "-O -w"
             },
-            :archive_file => "db/archive.dump"
+            archive_file: "db/archive.dump"
           }
         },
-        :rails => {
-          :enabled => true,
-          :env => "development"
+        rails: {
+          enabled: true,
+          env: "development"
         }
       }
       
@@ -168,7 +168,8 @@ module DB
     # is supported.
     def load_database_client
       @current_database = case @settings[:current_database]
-      when PG.id then PG.new(self, @settings)
+      when PG.id
+        PG.new self, @settings
       end
     end
   end

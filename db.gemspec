@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.description = "Database management for the command line with customizable options for common tasks."
 
   s.rdoc_options << "CHANGELOG.rdoc"
+  s.required_ruby_version = "~> 1.9.0"
   s.add_dependency "thor"
   s.add_development_dependency "rspec"
   s.add_development_dependency "aruba"

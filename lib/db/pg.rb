@@ -34,23 +34,23 @@ module DB
     end
 
     # Creates a new database.
-    def create options = nil
-      @cli.run "createdb #{create_options options.to_a}"
+    def create options = []
+      @cli.run "createdb #{create_options options}"
     end
 
     # Drops/destroys a database.
-    def drop options = nil
-      @cli.run "dropdb #{drop_options options.to_a}"
+    def drop options = []
+      @cli.run "dropdb #{drop_options options}"
     end
 
     # Dumps existing database to archive file.
-    def dump options = nil
-      @cli.run "pg_dump #{dump_options options.to_a}"
+    def dump options = []
+      @cli.run "pg_dump #{dump_options options}"
     end
     
     # Restores a database from archive file.
-    def restore options = nil
-      @cli.run "pg_restore #{restore_options options.to_a}"
+    def restore options = []
+      @cli.run "pg_restore #{restore_options options}"
     end
 
     # Executes database migrations.
@@ -164,12 +164,22 @@ module DB
 
     private
     
+    # Configures and initializes options with defaults (if necessary).
+    # ==== Parameters
+    # * +options+ = Required. The options to configure.
+    # * +defaults+ - Required. The default options if the supplied options are missing.
+    def configure_options options, defaults
+      options = Array options
+      options = Array(defaults) if options.empty?
+      options
+    end
+    
     # Builds remigration generator based off new migrations (i.e. db/migrate-new).
     def build_generator
       @cli.run "rails generate generator remigrate"
       generator_file = File.join "lib", "generators", "remigrate", "remigrate_generator.rb"
-      @cli.template File.expand_path(File.join(File.dirname(__FILE__), "templates", "generator.rb")), generator_file, :force => true
-      @cli.insert_into_file generator_file, :after => "def remigrate\n" do
+      @cli.template File.expand_path(File.join(File.dirname(__FILE__), "templates", "generator.rb")), generator_file, force: true
+      @cli.insert_into_file generator_file, after: "def remigrate\n" do
         migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
         migrations = migrations.map {|file| ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
         migrations * ''
@@ -178,9 +188,9 @@ module DB
 
     # Builds default PostgreSQL createdb command line options.
     # ==== Parameters
-    # * +options+ = Optional. Overrides the default options.
+    # * +options+ = Optional. Overrides the default options. Default: []
     def create_options options = []
-      options = [default_options[:create]] if options.empty?
+      options = configure_options options, default_options[:create]
       if rails_enabled?
         options << "-E #{rails_database_env_settings['encoding']}"
         options << "-O #{rails_database_env_settings['username']}"
@@ -193,9 +203,9 @@ module DB
 
     # Builds default PostgreSQL dropdb command line options.
     # ==== Parameters
-    # * +options+ = Optional. Overrides the default options.
+    # * +options+ = Optional. Overrides the default options. Default: []
     def drop_options options = []
-      options = [default_options[:drop]] if options.empty?
+      options = configure_options options, default_options[:drop]
       if rails_enabled?
         options << "-U #{rails_database_env_settings['username']}"
         options << "-h #{rails_database_env_settings['host']}"
@@ -206,9 +216,9 @@ module DB
 
     # Builds default PostgreSQL pg_dump command line options.
     # ==== Parameters
-    # * +options+ = Optional. Overrides the default options.
+    # * +options+ = Optional. Overrides the default options. Default: []
     def dump_options options = []
-      options = [default_options[:dump]] if options.empty?
+      options = configure_options options, default_options[:dump]
       if rails_enabled?
         options << "-U #{rails_database_env_settings['username']}"
         options << "-f #{archive_file}"
@@ -219,9 +229,9 @@ module DB
 
     # Builds default PostgreSQL pg_restore command line options.
     # ==== Parameters
-    # * +options+ = Optional. Overrides the default options.
+    # * +options+ = Optional. Overrides the default options. Default: []
     def restore_options options = []
-      options = [default_options[:restore]] if options.empty?
+      options = configure_options options, default_options[:restore]
       if rails_enabled?
         options << "-h #{rails_database_env_settings['host']}"
         options << "-U #{rails_database_env_settings['username']}"
