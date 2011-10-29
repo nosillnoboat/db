@@ -91,9 +91,13 @@ Should you get cold feet and decide against remigration, run the following comma
 
   db -M -r
 
-= Author
+= Company
 
 {Red Alchemist}[http://www.redalchemist.com]
+	
+= Author
+
+{Brooke Kuhlmann}[http://www.redalchemist.com]
 
 = License
 
