@@ -25,7 +25,7 @@ module DB
         begin
           @rails_database_settings = YAML::load_file @rails_database_settings_file
         rescue
-          @cli.say_error "Invalid Rails database settings: #{@rails_database_settings_file}."
+          @cli.error "Invalid Rails database settings: #{@rails_database_settings_file}."
         end
       else
         @settings[:rails][:enabled] = false

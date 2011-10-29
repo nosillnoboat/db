@@ -1,11 +1,12 @@
 require "yaml"
 require "thor"
 require "thor/actions"
+require "thor_plus/actions"
 
 module DB
   class CLI < Thor
     include Thor::Actions
-    include DB::Utilities
+    include ThorPlus::Actions
     
     # Initialize.
     def initialize args = [], options = {}, config = {}
@@ -25,7 +26,7 @@ module DB
     map "-c" => :create
     def create overrides = []
       @current_database.create overrides
-      say_info "Database created."
+      info "Database created."
     end
 
     desc "-D, [drop]", "Drop current database."
@@ -33,9 +34,9 @@ module DB
     def drop overrides = []
       if yes? "All data in current database will be completely destroyed. Continue? (y/n)"
         @current_database.drop overrides
-        say_info "Database dropped."
+        info "Database dropped."
       else
-        say_info "Database drop aborted."
+        info "Database drop aborted."
       end
     end
 
@@ -43,7 +44,7 @@ module DB
     map "-d" => :dump
     def dump overrides = []
       @current_database.dump overrides
-      say_info "Archive created: #{@current_database.archive_file}"
+      info "Archive created: #{@current_database.archive_file}"
     end
 
     desc "-r, [restore]", "Restore current database from archive file."
@@ -51,9 +52,9 @@ module DB
     def restore overrides = []
       if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         @current_database.restore overrides
-        say_info "Database restored."
+        info "Database restored."
       else
-        say_info "Database restore aborted."
+        info "Database restore aborted."
       end
     end
 
@@ -62,9 +63,9 @@ module DB
     def fresh overrides = []
       if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
         @current_database.freshen
-        say_info "Database restored."
+        info "Database restored."
       else
-        say_info "Database restore aborted."
+        info "Database restore aborted."
       end
     end
     
@@ -74,12 +75,12 @@ module DB
       if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         if File.exist? @current_database.archive_file
           @current_database.import
-          say_info "Database import complete."
+          info "Database import complete."
         else
-          say_error "Import aborted. Unable to find archive file: #{@current_database.archive_file}."
+          error "Import aborted. Unable to find archive file: #{@current_database.archive_file}."
         end
       else
-        say_info "Database import aborted."
+        info "Database import aborted."
       end
     end
 
@@ -87,7 +88,7 @@ module DB
     map "-m" => :migrate
     def migrate
       @current_database.migrate
-      say_info "Database migrated."
+      info "Database migrated."
     end
 
     desc "-M, [remigrate]", "Rebuild current database from new migrations."
@@ -113,9 +114,9 @@ module DB
     desc "-e, [edit]", "Edit gem settings in default editor (assumes $EDITOR environment variable)."
     map "-e" => :edit
     def edit
-      say_info "Launching editor..."
+      info "Launching editor..."
       `$EDITOR #{@settings_file}`
-      say_info "Editor launched."
+      info "Editor launched."
     end
 
     desc "-v, [version]", "Show version."
@@ -159,7 +160,7 @@ module DB
           settings = YAML::load_file @settings_file
           @settings.merge! settings.reject {|key, value| value.nil?}
         rescue
-          say_error "Invalid settings: #{@settings_file}."
+          error "Invalid settings: #{@settings_file}."
         end
       end
     end
