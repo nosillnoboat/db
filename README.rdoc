@@ -13,7 +13,8 @@ changes/updates that accumulate over time in your Ruby on Rails db/migrate folde
 
 = Requirements
 
-1. A strong understanding of database management, migrations, dumps/restores, etc.
+1. {Ruby 1.9.x}[http://www.ruby-lang.org].
+2. A strong understanding of database management, migrations, dumps/restores, etc.
 
 = Setup
 
@@ -45,17 +46,17 @@ The contents of the file should look like this (where the default values can be 
 
 From the command line, type: db
 
-  db -c, [create]     # Create new database.
   db -D, [drop]       # Drop current database.
-  db -d, [dump]       # Dump current database to archive file.
-  db -r, [restore]    # Restore current database from archive file.
   db -F, [fresh]      # Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed).
+  db -M, [remigrate]  # Rebuild current database from new migrations.
+  db -c, [create]     # Create new database.
+  db -d, [dump]       # Dump current database to archive file.
+  db -e, [edit]       # Edit gem settings in default editor (assumes $EDITOR environment variable).
+  db -h, [help]       # Show this message.
   db -i, [import]     # Import archive data into current database (i.e. drop, create, restore, and migrate).
   db -m, [migrate]    # Execute migrations for current database.
-  db -M, [remigrate]  # Rebuild current database from new migrations.
-  db -e, [edit]       # Edit gem settings in default editor (assumes $EDITOR environment variable).
+  db -r, [restore]    # Restore current database from archive file.
   db -v, [version]    # Show version.
-  db -h, [help]       # Show this message.
 
 For more remigration options, type: db help remigrate:
 
