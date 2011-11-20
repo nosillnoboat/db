@@ -1,4 +1,3 @@
-require "rubygems"
 require "bundler/setup"
 require "db"
 require File.join "db", "utilities"
