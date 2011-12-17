@@ -92,13 +92,21 @@ Should you get cold feet and decide against remigration, run the following comma
 
   db -M -r
 
-= Company
+= Tests
 
-{Red Alchemist}[http://www.redalchemist.com]
-	
-= Author
+To test, do the following:
 
-{Brooke Kuhlmann}[http://www.redalchemist.com]
+1. cd to the gem root.
+2. bundle install
+3. bundle exec rspec spec
+
+= Contributions
+
+Please log all feedback/issues via {GitHub Issues}[https://github.com/bkuhlmann/db/issues]. Thanks.
+
+= Credits
+
+Developed by {Brooke Kuhlmann}[http://www.redalchemist.com] at {Red Alchemist}[http://www.redalchemist.com]
 
 = License
 
