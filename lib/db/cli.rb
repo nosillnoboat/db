@@ -12,7 +12,7 @@ module DB
     def initialize args = [], options = {}, config = {}
       super args, options, config
       @settings_file = File.join ENV["HOME"], ".db", "settings.yml"
-      @settings = load_yaml default_settings
+      @settings = load_yaml @settings_file, default_settings
       load_database_client
     end
     
