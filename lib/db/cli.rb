@@ -11,9 +11,8 @@ module DB
     # Initialize.
     def initialize args = [], options = {}, config = {}
       super args, options, config
-      @settings = {}
       @settings_file = File.join ENV["HOME"], ".db", "settings.yml"
-      load_settings
+      @settings = load_yaml default_settings
       load_database_client
     end
     
@@ -132,9 +131,8 @@ module DB
 
     private
     
-    # Load settings.
-    def load_settings
-      # Defaults.
+    # Creates default settings.
+    def default_settings
       @settings = {
         current_database: PG.id,
         databases: {
@@ -153,16 +151,6 @@ module DB
           env: "development"
         }
       }
-      
-      # Settings File - Trumps defaults.
-      if File.exists? @settings_file
-        begin
-          settings = YAML::load_file @settings_file
-          @settings.merge! settings.reject {|key, value| value.nil?}
-        rescue
-          error "Invalid settings: #{@settings_file}."
-        end
-      end
     end
     
     # Loads the database client based off current database selection. At the moment, only the PostgreSQL database
