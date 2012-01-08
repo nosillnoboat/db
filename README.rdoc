@@ -1,5 +1,7 @@
 = Overview
 
+{<img src="https://secure.travis-ci.org/bkuhlmann/db.png" />}[http://travis-ci.org/bkuhlmann/db]
+
 Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
 restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration
 changes/updates that accumulate over time in your Ruby on Rails db/migrate folder.
