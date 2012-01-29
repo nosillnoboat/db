@@ -1,3 +1,12 @@
+= v1.2.0
+
+* Specified Thor+ 0.3.0 version dependency.
+* Added Travis CI support.
+* Added the spec/tmp dir to .gitignore.
+* Added Ruby encoding spec to the binary.
+* Switched gemspecs to listing files via Ruby code rather than shelling out to Git.
+* Removed the packaging of test files.
+
 = v1.1.0
 
 * Fixed bug with args, options, and config not being passed to super during CLI initialization.
