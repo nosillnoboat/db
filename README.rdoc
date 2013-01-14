@@ -1,5 +1,6 @@
 = Overview
 
+{<img src="https://badge.fury.io/rb/db.png" alt="Gem Version" />}[http://badge.fury.io/rb/db]
 {<img src="https://secure.travis-ci.org/bkuhlmann/db.png" />}[http://travis-ci.org/bkuhlmann/db]
 
 Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
