@@ -12,7 +12,6 @@ Gem::Specification.new do |s|
   s.summary               = "Database management for the command line."
   s.description           = "Database management for the command line with customizable options for common tasks."
   s.license               = "MIT"
-  s.post_install_message	= "(W): www.redalchemist.com. (T): @ralchemist."
 
   s.required_ruby_version = "~> 1.9.0"
   s.add_dependency "thor", "~> 0.14"
