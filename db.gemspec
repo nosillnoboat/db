@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.description           = "Database management for the command line with customizable options for common tasks."
   s.license               = "MIT"
 
-  s.required_ruby_version = "~> 1.9.0"
-  s.add_dependency "thor", "~> 0.14"
-  s.add_dependency "thor_plus", "~> 0.4"
+  s.required_ruby_version = "~> 2.0.0"
+  s.add_dependency "thor", "~> 0.17"
+  s.add_dependency "thor_plus", "~> 1.0"
   s.add_development_dependency "rake"
   s.add_development_dependency "pry"
   s.add_development_dependency "pry-nav"
