@@ -1,8 +1,8 @@
 = Overview
 
 {<img src="https://badge.fury.io/rb/db.png" alt="Gem Version" />}[http://badge.fury.io/rb/db]
+{<img src="https://codeclimate.com/github/bkuhlmann/db.png" alt="Code Climate GPA" />}[https://codeclimate.com/github/bkuhlmann/db]
 {<img src="https://secure.travis-ci.org/bkuhlmann/db.png" alt="Travis CI Status" />}[http://travis-ci.org/bkuhlmann/db]
-{<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/bkuhlmann/db]
 
 Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
 restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration
