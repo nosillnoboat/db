@@ -2,7 +2,7 @@ module DB
   # Wrapper for PostgreSQL database functionality.
   class PG
     include DB::Rails
-    
+
     # Answers the database client ID.
     def self.id
       "pg"
@@ -47,7 +47,7 @@ module DB
     def dump options = []
       @cli.run "pg_dump #{dump_options options}"
     end
-    
+
     # Restores a database from archive file.
     def restore options = []
       @cli.run "pg_restore #{restore_options options}"
@@ -57,7 +57,7 @@ module DB
     def migrate
       @cli.run "rake db:migrate"
     end
-    
+
     # Adds any/all seed data to database.
     def seed
       @cli.run "rake db:seed"
@@ -70,7 +70,7 @@ module DB
       migrate
       seed
     end
-    
+
     # Imports a database archive into the current database (i.e. drop, create, restore, and migrate)."
     def import
       drop
@@ -90,7 +90,7 @@ module DB
       @cli.directory migrate_path, File.join("db", "migrate-new")
       @cli.info "Database remigration setup complete."
     end
-    
+
     # Generates a "remigrate" generator that builds new migration sequences from existing migrations (i.e. migrate-new).
     def remigrate_generator
       if File.exists? File.join("lib", "generators", "remigrate", "remigrate_generator.rb")
@@ -104,7 +104,7 @@ module DB
         build_generator
       end
     end
-    
+
     # Executes the remigration process which dumps, drops, creates, migrates, and restores (data only) the database.
     def remigrate_execute
       @cli.info "Remigrating the database..."
@@ -163,7 +163,7 @@ module DB
     end
 
     private
-    
+
     # Configures and initializes options with defaults (if necessary).
     # ==== Parameters
     # * +options+ = Required. The options to configure.
@@ -173,7 +173,7 @@ module DB
       options = Array(defaults) if options.empty?
       options
     end
-    
+
     # Builds remigration generator based off new migrations (i.e. db/migrate-new).
     def build_generator
       @cli.run "rails generate generator remigrate"

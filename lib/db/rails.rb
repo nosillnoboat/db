@@ -5,7 +5,7 @@ module DB
     def rails_env
       @settings[:rails][:env]
     end
-    
+
     # Answers whether Ruby on Rails (i.e. the database.yml settings) is enabled for use.
     def rails_enabled?
       @settings[:rails][:enabled]

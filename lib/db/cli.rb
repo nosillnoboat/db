@@ -7,7 +7,7 @@ module DB
   class CLI < Thor
     include Thor::Actions
     include ThorPlus::Actions
-    
+
     # Initialize.
     def initialize args = [], options = {}, config = {}
       super args, options, config
@@ -15,12 +15,12 @@ module DB
       @settings = load_yaml @settings_file, default_settings
       load_database_client
     end
-    
+
     # Overrides Thor's default source root.
     def self.source_root
       File.expand_path '.'
     end
-    
+
     desc "-c, [create]", "Create new database."
     map "-c" => :create
     def create overrides = []
@@ -67,7 +67,7 @@ module DB
         info "Database restore aborted."
       end
     end
-    
+
     desc "-i, [import]", "Import archive data into current database (i.e. drop, create, restore, and migrate)."
     map "-i" => :import
     def import
@@ -130,7 +130,7 @@ module DB
     end
 
     private
-    
+
     # Creates default settings.
     def default_settings
       @settings = {
@@ -152,7 +152,7 @@ module DB
         }
       }
     end
-    
+
     # Loads the database client based off current database selection. At the moment, only the PostgreSQL database
     # is supported.
     def load_database_client

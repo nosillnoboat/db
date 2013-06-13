@@ -14,7 +14,7 @@ class RemigrateGenerator < Rails::Generators::Base
   end
 
   private
-  
+
   def copy_migration name
     path = File.join Dir.pwd, "db", "migrate"
     number = self.class.next_migration_number path
