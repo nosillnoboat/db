@@ -1,4 +1,4 @@
-= v2.0.0
+# v2.0.0
 
 * Upgraded to Ruby 2.0.0.
 * Added Guard support.
@@ -9,13 +9,13 @@
 * Added Pry development support.
 * Added 'tmp' directory to .gitignore.
 
-= v1.3.0
+# v1.3.0
 
 * Added mention of Gemsmith gem to README.
 * Updated Thor dependency to 0.x.x.
 * Updated Thor+ dependency to 0.x.x.
 
-= v1.2.0
+# v1.2.0
 
 * Specified Thor+ 0.3.0 version dependency.
 * Added Travis CI support.
@@ -24,14 +24,14 @@
 * Switched gemspecs to listing files via Ruby code rather than shelling out to Git.
 * Removed the packaging of test files.
 
-= v1.1.0
+# v1.1.0
 
 * Fixed bug with args, options, and config not being passed to super during CLI initialization.
 * Removed the RubyGems requirement.
 * Applied Gemsmith spec updates to README.
 * Upgraded to Thor+ 0.2.0 and added the default_settings method.
 
-= v1.0.0
+# v1.0.0
 
 * Fixed typo with info output.
 * Upgraded to Ruby 1.9 and added Ruby 1.9 requirements.
@@ -40,17 +40,17 @@
 * Removed namespace placeholder.
 * Moved the basic freshen and import methods into the PG object.
 
-= v0.4.0
+# v0.4.0
 
 * Fixed stack dump during remigration cleanup if the generators directory didn't exist.
 * Added a template for the remigration generator which provides a huge speed boost to the execution process.
 * Added documentation to the remigrate generator.
 
-= v0.3.0
+# v0.3.0
 
 * Fixed bug with remigrate execute process where migration generator would fail to build new migrations.
 
-= v0.2.0
+# v0.2.0
 
 * Fixed issues with the remigration generator not merging in new migration changes and respecting order.
 * Added the remigration generator and clean commands.
@@ -62,6 +62,6 @@
 * Renamed the archive file to archive.dump instead of database.dump.
 * Cleaned up all documentation.
 
-= v0.1.0
+# v0.1.0
 
 * Initial version.
