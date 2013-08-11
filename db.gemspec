@@ -13,8 +13,10 @@ Gem::Specification.new do |s|
   s.description           = "Database management for the command line with customizable options for common tasks."
   s.license               = "MIT"
 
-  s.signing_key = File.expand_path("~/.ssh/gem-private.pem")
-  s.cert_chain  = ["gem-public.pem"]
+  unless ENV["TRAVIS"]
+    s.signing_key = File.expand_path("~/.ssh/gem-private.pem")
+    s.cert_chain  = ["gem-public.pem"]
+  end
 
   s.required_ruby_version = "~> 2.0.0"
   s.add_dependency "thor", "~> 0.18"
