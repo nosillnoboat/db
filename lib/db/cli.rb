@@ -21,15 +21,15 @@ module DB
       File.expand_path '.'
     end
 
-    desc "-c, [create]", "Create new database."
-    map "-c" => :create
+    desc "-c, [create=CREATE]", "Create new database."
+    map %w(-c --create) => :create
     def create overrides = []
       @current_database.create overrides
       info "Database created."
     end
 
-    desc "-D, [drop]", "Drop current database."
-    map "-D" => :drop
+    desc "-D, [drop=DROP]", "Drop current database."
+    map %w(-D --drop) => :drop
     def drop overrides = []
       if yes? "All data in current database will be completely destroyed. Continue? (y/n)"
         @current_database.drop overrides
@@ -39,15 +39,15 @@ module DB
       end
     end
 
-    desc "-d, [dump]", "Dump current database to archive file."
-    map "-d" => :dump
+    desc "-d, [dump=DUMP]", "Dump current database to archive file."
+    map %w(-d --dump) => :dump
     def dump overrides = []
       @current_database.dump overrides
       info "Archive created: #{@current_database.archive_file}"
     end
 
-    desc "-r, [restore]", "Restore current database from archive file."
-    map "-r" => :restore
+    desc "-r, [restore=RESTORE]", "Restore current database from archive file."
+    map %w(-r --restore) => :restore
     def restore overrides = []
       if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         @current_database.restore overrides
@@ -57,8 +57,8 @@ module DB
       end
     end
 
-    desc "-F, [fresh]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
-    map "-F" => :fresh
+    desc "-F, [fresh=FRESH]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
+    map %w(-F --fresh) => :fresh
     def fresh overrides = []
       if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
         @current_database.freshen
@@ -69,7 +69,7 @@ module DB
     end
 
     desc "-i, [import]", "Import archive data into current database (i.e. drop, create, restore, and migrate)."
-    map "-i" => :import
+    map %w(-i --import) => :import
     def import
       if yes? "All data in current database will be completely overwritten. Continue? (y/n)"
         if File.exist? @current_database.archive_file
@@ -84,14 +84,14 @@ module DB
     end
 
     desc "-m, [migrate]", "Execute migrations for current database."
-    map "-m" => :migrate
+    map %w(-m --migrate) => :migrate
     def migrate
       @current_database.migrate
       info "Database migrated."
     end
 
-    desc "-M, [remigrate]", "Rebuild current database from new migrations."
-    map "-M" => :remigrate
+    desc "-M, [remigrate=REMIGRATE]", "Rebuild current database from new migrations."
+    map %w(-M --remigrate) => :remigrate
     method_option :setup, aliases: "-s", desc: "Prepare existing migrations for remigration process.", type: :boolean, default: false
     method_option :generator, aliases: "-g", desc: "Create the remigration generator based on new migrations (as created during setup).", type: :boolean, default: false
     method_option :execute, aliases: "-e", desc: "Execute the remigration process.", type: :boolean, default: false
@@ -111,20 +111,21 @@ module DB
     end
 
     desc "-e, [edit]", "Edit gem settings in default editor (assumes $EDITOR environment variable)."
-    map "-e" => :edit
+    map %w(-e --edit) => :edit
     def edit
       info "Launching editor..."
       `$EDITOR #{@settings_file}`
       info "Editor launched."
     end
 
-    desc "-v, [version]", "Show version."
-    map "-v" => :version
+    desc "-v, [--version]", "Show version."
+    map %w(-v --version) => :version
     def version
       say "DB " + VERSION
     end
 
-    desc "-h, [help]", "Show this message."
+    desc "-h, [--help=HELP]", "Show this message or get help for a command."
+    map %w(-h --help) => :help
     def help task = nil
       say and super
     end
