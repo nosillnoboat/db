@@ -24,7 +24,7 @@ changes/updates that accumulate over time in your Ruby on Rails db/migrate folde
 
 Type the following from the command line to securely install (recommended):
 
-    gem cert --add <(curl -Ls https://raw.github.com/bkuhlmann/db/master/gem-public.pem)
+    gem cert --add <(curl -Ls http://www.redalchemist.com/gem-public.pem)
     gem install db -P HighSecurity
 
 ...or type the following to insecurely install (not recommended):
