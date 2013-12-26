@@ -17,7 +17,7 @@ changes/updates that accumulate over time in your Ruby on Rails db/migrate folde
 
 # Requirements
 
-1. [Ruby 2.0.x](http://www.ruby-lang.org).
+1. [Ruby 2.x.x](http://www.ruby-lang.org).
 2. A strong understanding of database management, migrations, dumps/restores, etc.
 
 # Setup
