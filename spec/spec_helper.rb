@@ -4,6 +4,13 @@ require "db/rails"
 require "db/pg"
 require "db/cli"
 require "pry"
+require "pry-byebug"
+require "pry-remote"
+require "pry-rescue"
+require "pry-stack_explorer"
+require "pry-vterm_aliases"
+require "pry-git"
+require "pry-doc"
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
