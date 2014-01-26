@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform              = Gem::Platform::RUBY
   s.author                = "Brooke Kuhlmann"
   s.email                 = "brooke@redalchemist.com"
-  s.homepage              = "http://www.redalchemist.com"
+  s.homepage              = "https://github.com/bkuhlmann/db"
   s.summary               = "Database management for the command line."
   s.description           = "Database management for the command line with customizable options for common tasks."
   s.license               = "MIT"
