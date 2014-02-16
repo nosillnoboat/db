@@ -114,7 +114,7 @@ module DB
     map %w(-e --edit) => :edit
     def edit
       info "Launching editor..."
-      `$EDITOR #{@settings_file}`
+      `#{editor} #{@settings_file}`
       info "Editor launched."
     end
 
