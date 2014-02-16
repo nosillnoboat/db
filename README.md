@@ -4,6 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/db.png)](https://codeclimate.com/github/bkuhlmann/db)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.png)](https://gemnasium.com/bkuhlmann/db)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.png)](http://travis-ci.org/bkuhlmann/db)
+[![Coverage Status](https://coveralls.io/repos/bkuhlmann/db/badge.png)](https://coveralls.io/r/bkuhlmann/db)
 
 Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
 restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration
