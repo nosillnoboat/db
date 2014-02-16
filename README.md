@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/db.png)](http://badge.fury.io/rb/db)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/db.png)](https://codeclimate.com/github/bkuhlmann/db)
+[![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.png)](https://gemnasium.com/bkuhlmann/db)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.png)](http://travis-ci.org/bkuhlmann/db)
 
 Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
