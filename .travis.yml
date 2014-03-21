@@ -1,12 +1,12 @@
 language: ruby
 rvm:
-  - 2.0.0
-  - 2.1.0
-  - jruby
-  - rbx-2
+- 2.0.0
+- 2.1.0
+- jruby
+- rbx-2
 before_install: rm -f Gemfile.lock
 script: bundle exec rspec spec
 notifications:
   email: false
-  webhooks:
-    secure: "RBjGPOWV3WxqSk9Ug+iLM1ZuVQmAob5JtE325dz7310x5uoDrVxk7ZLo3mMC62trbKRFkgovdfs81Wyu9/yFLzEezE2AaAcJzxINQPveqrJ8a+5HoAsbE2+1R2pmpeEgFRRVAx4foh3n4a+juXSaOjV+w8gZJBU6U7/4H4vQnSE="
+  slack:
+    secure: B4f/4nYxUbGzdazor4GBSgFng9fRURmtcf4/RoGkiVFuK5AvsrGpkaOWHPSKdjDH+glfqkSUQ3ilfteG04dtEZRAB7+0hT5G62tDXR5I9Oki32ZbLNH6Y3U13PeOLd2YeDm63RxbnZgLpx1X9pYiTPyqgoQVK3kcNLqvtplJu2Q=
