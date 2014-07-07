@@ -1,3 +1,8 @@
+# v2.5.0
+
+* Added Code Climate test coverage support.
+* Updated to Ruby 2.1.2.
+
 # v2.4.0
 
 * Updated to MRI 2.1.1.
