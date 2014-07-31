@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.name                  = "db"
   s.version               = DB::VERSION
   s.platform              = Gem::Platform::RUBY
-  s.author                = "Brooke Kuhlmann"
-  s.email                 = "brooke@redalchemist.com"
+  s.authors               = ["Brooke Kuhlmann"]
+  s.email                 = ["brooke@redalchemist.com"]
   s.homepage              = "https://github.com/bkuhlmann/db"
   s.summary               = "Database management for the command line."
   s.description           = "Database management for the command line with customizable options for common tasks."
