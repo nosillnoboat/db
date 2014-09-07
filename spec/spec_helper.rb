@@ -24,19 +24,8 @@ case Gem.ruby_engine
     require "pry-stack_explorer"
 end
 
+Dir[File.join(File.dirname(__FILE__), "support/kit/**/*.rb")].each { |file| require file }
+
 RSpec.configure do |config|
-  config.run_all_when_everything_filtered = true
-  config.filter_run focus: true
-
-  config.mock_with :rspec do |mocks|
-    mocks.verify_partial_doubles = true
-  end
-
-  config.expect_with :rspec do |expectations|
-    expectations.syntax = :expect
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
-  end
-
-  config.before(:all) { GC.disable }
-  config.after(:all) { GC.enable }
+  # NOTE: Add DB specific configuration here. For the common configuration, see the "support/kit" folder.
 end
