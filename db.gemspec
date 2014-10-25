@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.version               = DB::VERSION
   spec.platform              = Gem::Platform::RUBY
   spec.authors               = ["Brooke Kuhlmann"]
-  spec.email                 = ["bkuhlmann@alchemists.io"]
+  spec.email                 = ["brooke@alchemists.io"]
   spec.homepage              = "https://github.com/bkuhlmann/db"
   spec.summary               = "Database management for the command line."
   spec.description           = "Database management for the command line with customizable options for common taskspec."
