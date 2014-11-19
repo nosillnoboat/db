@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description           = "Database management for the command line with customizable options for common taskspec."
   spec.license               = "MIT"
 
-  unless ENV["CI"] == "true"
+  if ENV["RUBY_GEM_SECURITY"] == "enabled"
     spec.signing_key = File.expand_path("~/.ssh/gem-private.pem")
     spec.cert_chain = [File.expand_path("~/.ssh/gem-public.pem")]
   end
