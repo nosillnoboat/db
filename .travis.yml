@@ -1,7 +1,8 @@
 language: ruby
 env:
   global:
-    secure: Kkl8Hb+HYDOZDEkgzBKyfzXI9sD+ElObEOFO8m72fLg9KoXuItklOtr/OaZmZwtGfQk3RBjieVEQ3fV+Zi26um8Rx6LbTbkjXX95tR5pfIgjYNj8KCAGncmofXsjnex+zqbiElhRmKzgQ0JK/GdVNaLc7anPHptwKiMt5LDLkXE=
+    - secure: Kkl8Hb+HYDOZDEkgzBKyfzXI9sD+ElObEOFO8m72fLg9KoXuItklOtr/OaZmZwtGfQk3RBjieVEQ3fV+Zi26um8Rx6LbTbkjXX95tR5pfIgjYNj8KCAGncmofXsjnex+zqbiElhRmKzgQ0JK/GdVNaLc7anPHptwKiMt5LDLkXE=
+    - JRUBY_OPTS=--2.0
 rvm:
 - 2.1.0
 - 2.2.0
