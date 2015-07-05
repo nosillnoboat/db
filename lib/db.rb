@@ -1,4 +1,4 @@
 # Dependencies
-require "db/version"
+require "db/identity"
 require "db/rails"
 require "db/pg"

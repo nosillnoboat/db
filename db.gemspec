@@ -1,9 +1,9 @@
 $:.push File.expand_path("../lib", __FILE__)
-require "db/version"
+require "db/identity"
 
 Gem::Specification.new do |spec|
-  spec.name                  = "db"
-  spec.version               = DB::VERSION
+  spec.name                  = DB::Identity.name
+  spec.version               = DB::Identity.version
   spec.platform              = Gem::Platform::RUBY
   spec.authors               = ["Brooke Kuhlmann"]
   spec.email                 = ["brooke@alchemists.io"]
