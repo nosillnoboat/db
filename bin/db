@@ -2,4 +2,7 @@
 
 require "db"
 require "db/cli"
+require "db/identity"
+
+Process.setproctitle DB::Identity.label_version
 DB::CLI.start
