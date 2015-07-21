@@ -8,6 +8,8 @@ module DB
     include Thor::Actions
     include ThorPlus::Actions
 
+    package_name DB::Identity.label
+
     # Initialize.
     def initialize args = [], options = {}, config = {}
       super args, options, config
