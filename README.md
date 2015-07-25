@@ -1,4 +1,4 @@
-# Overview
+# DB
 
 [![Gem Version](https://badge.fury.io/rb/db.png)](http://badge.fury.io/rb/db)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/db.png)](https://codeclimate.com/github/bkuhlmann/db)
