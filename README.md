@@ -11,6 +11,25 @@ Database management for the command line with customizable options for common ta
 restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration
 changes/updates that accumulate over time in your Ruby on Rails db/migrate folder.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+# Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Usage](#usage)
+    - [Remigration](#remigration)
+- [Tests](#tests)
+- [Versioning](#versioning)
+- [Code of Conduct](#code-of-conduct)
+- [Contributions](#contributions)
+- [License](#license)
+- [History](#history)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Features
 
 1. Faster execution when creating/dropping databases than the default Ruby on Rails rake tasks.
@@ -81,7 +100,7 @@ For more remigration options, type: db help remigrate:
     -c, [--clean]      # Clean excess remigration files created during the setup and generator steps.
     -r, [--restore]    # Revert database migrations to original state (i.e. reverses setup).
 
-# The Remigration Process
+## Remigration
 
 For those with Ruby on Rails projects, you might find this a welcomed tool for cleaning and maintaining your
 migrations. The problem with database migrations is that they tend to get cluttered over time. Instead of
