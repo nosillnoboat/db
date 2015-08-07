@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/db.svg)](https://codeclimate.com/github/bkuhlmann/db)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/db/coverage.svg)](https://codeclimate.com/github/bkuhlmann/db)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.svg)](https://gemnasium.com/bkuhlmann/db)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.png)](http://travis-ci.org/bkuhlmann/db)
+[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.svg)](http://travis-ci.org/bkuhlmann/db)
 [![Gittip](http://img.shields.io/gittip/bkuhlmann.svg)](https://www.gittip.com/bkuhlmann)
 
 Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
