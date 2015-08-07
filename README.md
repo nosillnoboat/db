@@ -1,6 +1,6 @@
 # DB
 
-[![Gem Version](https://badge.fury.io/rb/db.png)](http://badge.fury.io/rb/db)
+[![Gem Version](https://badge.fury.io/rb/db.svg)](http://badge.fury.io/rb/db)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/db.png)](https://codeclimate.com/github/bkuhlmann/db)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/db/coverage.png)](https://codeclimate.com/github/bkuhlmann/db)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.png)](https://gemnasium.com/bkuhlmann/db)
