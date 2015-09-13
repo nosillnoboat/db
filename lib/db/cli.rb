@@ -112,7 +112,7 @@ module DB
       say
     end
 
-    desc "-e, [edit]", "Edit gem settings in default editor (assumes $EDITOR environment variable)."
+    desc "-e, [--edit]", "Edit #{DB::Identity.label} settings in default editor."
     map %w(-e --edit) => :edit
     def edit
       info "Launching editor..."
