@@ -120,7 +120,7 @@ module DB
       info "Editor launched."
     end
 
-    desc "-v, [--version]", "Show version."
+    desc "-v, [--version]", "Show #{DB::Identity.label} version."
     map %w(-v --version) => :version
     def version
       say DB::Identity.version_label
