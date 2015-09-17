@@ -6,9 +6,9 @@
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.svg)](https://gemnasium.com/bkuhlmann/db)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.svg)](http://travis-ci.org/bkuhlmann/db)
 
-Database management for the command line with customizable options for common tasks (i.e. create, drop, dump,
-restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration
-changes/updates that accumulate over time in your Ruby on Rails db/migrate folder.
+A command line interface for database management with customizable options for common tasks (i.e. create, drop, dump,
+restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration changes/updates
+that accumulate over time in your Ruby on Rails db/migrate folder.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

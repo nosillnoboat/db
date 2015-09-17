@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors               = ["Brooke Kuhlmann"]
   spec.email                 = ["brooke@alchemists.io"]
   spec.homepage              = "https://github.com/bkuhlmann/db"
-  spec.summary               = "Database management for the command line."
-  spec.description           = "Database management for the command line with customizable options for common taskspec."
+  spec.summary               = "A command line interface for database management."
+  spec.description           = "A command line interface for database management with customizable options for common tasks."
   spec.license               = "MIT"
 
   if ENV["RUBY_GEM_SECURITY"] == "enabled"
