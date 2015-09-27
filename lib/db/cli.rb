@@ -129,7 +129,7 @@ module DB
     desc "-h, [--help=HELP]", "Show this message or get help for a command."
     map %w(-h --help) => :help
     def help task = nil
-      say and super
+      say && super
     end
 
     private
