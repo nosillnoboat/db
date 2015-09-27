@@ -1,4 +1,5 @@
 module DB
+  # Gem identity information.
   module Identity
     def self.name
       "db"
