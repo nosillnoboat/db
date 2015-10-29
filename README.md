@@ -5,6 +5,7 @@
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/db/coverage.svg)](https://codeclimate.com/github/bkuhlmann/db)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.svg)](https://gemnasium.com/bkuhlmann/db)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.svg)](http://travis-ci.org/bkuhlmann/db)
+[![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 A command line interface for database management with customizable options for common tasks (i.e. create, drop, dump,
 restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration changes/updates
