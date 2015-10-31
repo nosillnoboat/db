@@ -1,15 +1,17 @@
 require "rails/generators/active_record/migration"
 
+# Generator for performing database remigrations.
 class RemigrateGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
   extend ActiveRecord::Generators::Migration
 
   source_root Dir.pwd
 
-  # Generates the migrations based on migration file names listed below. It is not recommended that you rename any of these files
-  # as they were sourced from the "migrate-new" folder. If adjustments are required, edit the files in the "migrate-new" folder
-  # instead and then build this generator again. However, it IS recommend you rearrange the order of the migrations listed below,
-  # if necessary, as the order of each migration will directly affect the new migration creation sequence.
+  # Generates the migrations based on migration file names listed below. It is not recommended that you rename any of
+  # these files as they were sourced from the "migrate-new" folder. If adjustments are required, edit the files in the
+  # "migrate-new" folder instead and then build this generator again. However, it IS recommend you rearrange the order
+  # of the migrations listed below, if necessary, as the order of each migration will directly affect the new migration
+  # creation sequence.
   def remigrate
   end
 

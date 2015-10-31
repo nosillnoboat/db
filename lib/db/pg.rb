@@ -93,7 +93,7 @@ module DB
 
     # Generates a "remigrate" generator that builds new migration sequences from existing migrations (i.e. migrate-new).
     def remigrate_generator
-      if File.exists? File.join("lib", "generators", "remigrate", "remigrate_generator.rb")
+      if File.exist? File.join("lib", "generators", "remigrate", "remigrate_generator.rb")
         if @cli.yes?("Existing generator detected. Overwrite and lose all changes? (y/n)")
           @cli.remove_dir File.join("lib", "generators", "remigrate")
           build_generator
@@ -109,7 +109,7 @@ module DB
     def remigrate_execute
       @cli.info "Remigrating the database..."
       # Dump, drop, and recreate the database.
-      dump unless File.exists?(archive_file)
+      dump unless File.exist?(archive_file)
       drop
       create
       # Remove existing migrations.
@@ -134,7 +134,7 @@ module DB
         # Remove generators.
         generators_path = File.join "lib", "generators"
         @cli.remove_dir File.join(generators_path, "remigrate")
-        if File.exists?(generators_path) && (Dir.entries(generators_path) - %w{. ..})
+        if File.exist?(generators_path) && (Dir.entries(generators_path) - %w(. ..))
           @cli.remove_dir File.join(generators_path)
         end
         # Remove archive file.
@@ -158,7 +158,7 @@ module DB
       # Remove generators.
       generators_path = File.join "lib", "generators"
       @cli.remove_dir File.join(generators_path, "remigrate")
-      @cli.remove_dir File.join(generators_path) if Dir.entries(generators_path) - %w{. ..}
+      @cli.remove_dir File.join(generators_path) if Dir.entries(generators_path) - %w(. ..)
       @cli.info "Remigration revert complete - Database migrations restored to original state."
     end
 
@@ -178,11 +178,16 @@ module DB
     def build_generator
       @cli.run "rails generate generator remigrate"
       generator_file = File.join "lib", "generators", "remigrate", "remigrate_generator.rb"
-      @cli.template File.expand_path(File.join(File.dirname(__FILE__), "templates", "generator.rb")), generator_file, force: true
+      generator_template_file = File.expand_path File.join(File.dirname(__FILE__), "templates", "generator.rb")
+
+      @cli.template generator_template_file, generator_file, force: true
+
       @cli.insert_into_file generator_file, after: "def remigrate\n" do
         migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
-        migrations = migrations.map {|file| ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(' ')  + "\n"}
-        migrations * ''
+        migrations = migrations.map do |file|
+          ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(" ") + "\n"
+        end
+        migrations * ""
       end
     end
 
@@ -198,7 +203,7 @@ module DB
         options << "-h #{rails_database_env_settings['host']}"
         options << "#{rails_database_env_settings['database']}"
       end
-      options.compact * ' '
+      options.compact * " "
     end
 
     # Builds default PostgreSQL dropdb command line options.
@@ -211,7 +216,7 @@ module DB
         options << "-h #{rails_database_env_settings['host']}"
         options << "#{rails_database_env_settings['database']}"
       end
-      options.compact * ' '
+      options.compact * " "
     end
 
     # Builds default PostgreSQL pg_dump command line options.
@@ -224,7 +229,7 @@ module DB
         options << "-f #{archive_file}"
         options << "#{rails_database_env_settings['database']}"
       end
-      options.compact * ' '
+      options.compact * " "
     end
 
     # Builds default PostgreSQL pg_restore command line options.
@@ -238,7 +243,7 @@ module DB
         options << "-d #{rails_database_env_settings['database']}"
         options << "#{archive_file}"
       end
-      options.compact * ' '
+      options.compact * " "
     end
   end
 end

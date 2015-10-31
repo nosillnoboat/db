@@ -21,9 +21,9 @@ module DB
     def load_rails_database_settings
       @rails_database_settings = {}
       @rails_database_settings_file = File.join "config", "database.yml"
-      if File.exists? @rails_database_settings_file
+      if File.exist? @rails_database_settings_file
         begin
-          @rails_database_settings = YAML::load_file @rails_database_settings_file
+          @rails_database_settings = YAML.load_file @rails_database_settings_file
         rescue
           @cli.error "Invalid Rails database settings: #{@rails_database_settings_file}."
         end

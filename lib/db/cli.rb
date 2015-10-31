@@ -4,6 +4,7 @@ require "thor/actions"
 require "thor_plus/actions"
 
 module DB
+  # The Command Line Interface (CLI) for the gem.
   class CLI < Thor
     include Thor::Actions
     include ThorPlus::Actions
@@ -20,7 +21,7 @@ module DB
 
     # Overrides Thor's default source root.
     def self.source_root
-      File.expand_path '.'
+      File.expand_path "."
     end
 
     desc "-c, [create=CREATE]", "Create new database."
@@ -61,7 +62,7 @@ module DB
 
     desc "-F, [fresh=FRESH]", "Create fresh (new) database from scratch (i.e. drop, create, migrate, and seed)."
     map %w(-F --fresh) => :fresh
-    def fresh overrides = []
+    def fresh
       if yes? "The current database will be completely destroyed and rebuilt from scratch. Continue? (y/n)"
         @current_database.freshen
         info "Database restored."
@@ -102,12 +103,12 @@ module DB
     def remigrate
       say
       case
-      when options[:setup] then @current_database.remigrate_setup
-      when options[:generator] then @current_database.remigrate_generator
-      when options[:execute] then @current_database.remigrate_execute
-      when options[:clean] then @current_database.remigrate_clean
-      when options[:restore] then @current_database.remigrate_restore
-      else help("remigrate")
+        when options[:setup] then @current_database.remigrate_setup
+        when options[:generator] then @current_database.remigrate_generator
+        when options[:execute] then @current_database.remigrate_execute
+        when options[:clean] then @current_database.remigrate_clean
+        when options[:restore] then @current_database.remigrate_restore
+        else help("remigrate")
       end
       say
     end
@@ -156,13 +157,9 @@ module DB
       }
     end
 
-    # Loads the database client based off current database selection. At the moment, only the PostgreSQL database
-    # is supported.
+    # Loads the database client based off current database selection. At the moment, only the PostgreSQL is supported.
     def load_database_client
-      @current_database = case @settings[:current_database]
-      when PG.id
-        PG.new self, @settings
-      end
+      @current_database = PG.new self, @settings
     end
   end
 end

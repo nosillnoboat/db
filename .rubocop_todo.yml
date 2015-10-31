@@ -1,0 +1,16 @@
+Metrics/AbcSize:
+  Exclude:
+    - "lib/db/cli.rb"
+    - "lib/db/pg.rb"
+Metrics/ClassLength:
+  Exclude:
+    - "lib/db/cli.rb"
+    - "lib/db/pg.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/db/cli.rb"
+    - "lib/db/pg.rb"
+    - "lib/db/rails.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/db/cli.rb"

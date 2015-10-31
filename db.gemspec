@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require "db/identity"
 
 Gem::Specification.new do |spec|
@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email                 = ["brooke@alchemists.io"]
   spec.homepage              = "https://github.com/bkuhlmann/db"
   spec.summary               = "A command line interface for database management."
-  spec.description           = "A command line interface for database management with customizable options for common tasks."
+  spec.description           = "A command line interface for database management."
   spec.license               = "MIT"
 
   if ENV["RUBY_GEM_SECURITY"] == "enabled"
@@ -32,10 +32,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "terminal-notifier"
   spec.add_development_dependency "terminal-notifier-guard"
+  spec.add_development_dependency "rubocop"
   spec.add_development_dependency "codeclimate-test-reporter"
 
   spec.files            = Dir["lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
-  spec.executables      << "db"
-  spec.require_paths    = ["lib"]
+  spec.executables << "db"
+  spec.require_paths = ["lib"]
 end
