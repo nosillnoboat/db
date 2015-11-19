@@ -11,15 +11,15 @@ A command line interface for database management with customizable options for c
 restore, etc.) Also supports the remigration process which makes dealing with cleaning up tiny migration changes/updates
 that accumulate over time in your Ruby on Rails db/migrate folder.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
 # Table of Contents
 
 - [Features](#features)
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Usage](#usage)
-    - [Remigration](#remigration)
+  - [Remigration](#remigration)
 - [Tests](#tests)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
@@ -28,7 +28,7 @@ that accumulate over time in your Ruby on Rails db/migrate folder.
 - [History](#history)
 - [Credits](#credits)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
 
 # Features
 
