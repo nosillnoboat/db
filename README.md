@@ -130,7 +130,7 @@ Should you get cold feet and decide against remigration, run the following comma
 
 To test, run:
 
-    bundle exec rspec spec
+    bundle exec rake
 
 # Versioning
 
