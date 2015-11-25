@@ -185,7 +185,7 @@ module DB
       @cli.insert_into_file generator_file, after: "def remigrate\n" do
         migrations = Dir.glob File.join("db", "migrate-new", "*.rb")
         migrations = migrations.map do |file|
-          ["    copy_migration", "\"#{File.basename(file, '.rb').gsub(/\d+_/, '')}\""].join(" ") + "\n"
+          ["    copy_migration", %("#{File.basename(file, ".rb").gsub(/\d+_/, "")}")].join(" ") + "\n"
         end
         migrations * ""
       end
@@ -197,11 +197,11 @@ module DB
     def create_options options = []
       options = configure_options options, default_options[:create]
       if rails_enabled?
-        options << "-E #{rails_database_env_settings['encoding']}"
-        options << "-O #{rails_database_env_settings['username']}"
-        options << "-U #{rails_database_env_settings['username']}"
-        options << "-h #{rails_database_env_settings['host']}"
-        options << "#{rails_database_env_settings['database']}"
+        options << %(-E #{rails_database_env_settings["encoding"]})
+        options << %(-O #{rails_database_env_settings["username"]})
+        options << %(-U #{rails_database_env_settings["username"]})
+        options << %(-h #{rails_database_env_settings["host"]})
+        options << %(#{rails_database_env_settings["database"]})
       end
       options.compact * " "
     end
@@ -212,9 +212,9 @@ module DB
     def drop_options options = []
       options = configure_options options, default_options[:drop]
       if rails_enabled?
-        options << "-U #{rails_database_env_settings['username']}"
-        options << "-h #{rails_database_env_settings['host']}"
-        options << "#{rails_database_env_settings['database']}"
+        options << %(-U #{rails_database_env_settings["username"]})
+        options << %(-h #{rails_database_env_settings["host"]})
+        options << %(#{rails_database_env_settings["database"]})
       end
       options.compact * " "
     end
@@ -225,9 +225,9 @@ module DB
     def dump_options options = []
       options = configure_options options, default_options[:dump]
       if rails_enabled?
-        options << "-U #{rails_database_env_settings['username']}"
+        options << %(-U #{rails_database_env_settings["username"]})
         options << "-f #{archive_file}"
-        options << "#{rails_database_env_settings['database']}"
+        options << %(#{rails_database_env_settings["database"]})
       end
       options.compact * " "
     end
@@ -238,9 +238,9 @@ module DB
     def restore_options options = []
       options = configure_options options, default_options[:restore]
       if rails_enabled?
-        options << "-h #{rails_database_env_settings['host']}"
-        options << "-U #{rails_database_env_settings['username']}"
-        options << "-d #{rails_database_env_settings['database']}"
+        options << %(-h #{rails_database_env_settings["host"]})
+        options << %(-U #{rails_database_env_settings["username"]})
+        options << %(-d #{rails_database_env_settings["database"]})
         options << "#{archive_file}"
       end
       options.compact * " "
