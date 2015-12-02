@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/db.svg)](https://codeclimate.com/github/bkuhlmann/db)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/db/coverage.svg)](https://codeclimate.com/github/bkuhlmann/db)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/db.svg)](https://gemnasium.com/bkuhlmann/db)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.svg)](http://travis-ci.org/bkuhlmann/db)
+[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/db.svg)](https://travis-ci.org/bkuhlmann/db)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 A command line interface for database management with customizable options for common tasks (i.e. create, drop, dump,
@@ -39,7 +39,7 @@ that accumulate over time in your Ruby on Rails db/migrate folder.
 
 # Requirements
 
-0. [MRI 2.x.x](http://www.ruby-lang.org).
+0. [MRI 2.x.x](https://www.ruby-lang.org).
 0. A strong understanding of database management, migrations, dumps/restores, etc.
 
 # Setup
