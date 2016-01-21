@@ -203,7 +203,7 @@ module DB
         options << %(-O #{rails_database_env_settings["username"]})
         options << %(-U #{rails_database_env_settings["username"]})
         options << %(-h #{rails_database_env_settings["host"]})
-        options << %(#{rails_database_env_settings["database"]})
+        options << rails_database_env_settings["database"].to_s
       end
       options.compact * " "
     end
@@ -216,7 +216,7 @@ module DB
       if rails_enabled?
         options << %(-U #{rails_database_env_settings["username"]})
         options << %(-h #{rails_database_env_settings["host"]})
-        options << %(#{rails_database_env_settings["database"]})
+        options << rails_database_env_settings["database"].to_s
       end
       options.compact * " "
     end
@@ -229,7 +229,7 @@ module DB
       if rails_enabled?
         options << %(-U #{rails_database_env_settings["username"]})
         options << "-f #{archive_file}"
-        options << %(#{rails_database_env_settings["database"]})
+        options << rails_database_env_settings["database"].to_s
       end
       options.compact * " "
     end
@@ -243,7 +243,7 @@ module DB
         options << %(-h #{rails_database_env_settings["host"]})
         options << %(-U #{rails_database_env_settings["username"]})
         options << %(-d #{rails_database_env_settings["database"]})
-        options << "#{archive_file}"
+        options << archive_file.to_s
       end
       options.compact * " "
     end
