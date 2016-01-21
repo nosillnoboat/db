@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DB
   # Wrapper for PostgreSQL database functionality.
   class PG

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DB
   # Adds Ruby on Rails support and common functionality for use with the various database clients.
   module Rails

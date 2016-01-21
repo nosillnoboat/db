@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DB
   # Gem identity information.
   module Identity
